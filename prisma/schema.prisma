@@ -6,3 +6,37 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  province  String   @db.VarChar(100)
+  city      String   @db.VarChar(100)
+  cases     Case[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Case {
+  id          Int      @id @default(autoincrement())
+  first_name  String   @db.VarChar(100)
+  last_name   String   @db.VarChar(100)
+  age         Int
+  description String   @db.VarChar(2000)
+  estado      Boolean  @default(true)
+  location_id Int
+  location    Location @relation(fields: [location_id], references: [id])
+  user_id     Int?
+  alerts      Alert[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Alert {
+  id          Int      @id @default(autoincrement())
+  description String   @db.VarChar(2000)
+  case_id     Int
+  case        Case     @relation(fields: [case_id], references: [id], onDelete: Cascade)
+  user_id     Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
