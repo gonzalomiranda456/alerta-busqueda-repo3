@@ -26,6 +26,7 @@ model Case {
   location_id Int
   location    Location @relation(fields: [location_id], references: [id])
   user_id     Int?
+  user        User?    @relation(fields: [user_id], references: [id])
   alerts      Alert[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -37,6 +38,19 @@ model Alert {
   case_id     Int
   case        Case     @relation(fields: [case_id], references: [id], onDelete: Cascade)
   user_id     Int?
+  user        User?    @relation(fields: [user_id], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  full_name String   @db.VarChar(150)
+  dni       String   @unique @db.VarChar(20)
+  email     String   @unique @db.VarChar(150)
+  password  String   @db.VarChar(255)
+  cases     Case[]
+  alerts    Alert[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

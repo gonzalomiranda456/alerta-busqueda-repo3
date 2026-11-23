@@ -11,4 +11,5 @@
 export type * from './models/Location.js'
 export type * from './models/Case.js'
 export type * from './models/Alert.js'
+export type * from './models/User.js'
 export type * from './commonInputTypes.js'
