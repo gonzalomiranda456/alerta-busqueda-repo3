@@ -269,6 +269,7 @@ export type CaseWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Case"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Case"> | Date | string
   location?: Prisma.XOR<Prisma.LocationScalarRelationFilter, Prisma.LocationWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   alerts?: Prisma.AlertListRelationFilter
 }
 
@@ -284,6 +285,7 @@ export type CaseOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   location?: Prisma.LocationOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   alerts?: Prisma.AlertOrderByRelationAggregateInput
 }
 
@@ -302,6 +304,7 @@ export type CaseWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Case"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Case"> | Date | string
   location?: Prisma.XOR<Prisma.LocationScalarRelationFilter, Prisma.LocationWhereInput>
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   alerts?: Prisma.AlertListRelationFilter
 }, "id">
 
@@ -345,10 +348,10 @@ export type CaseCreateInput = {
   age: number
   description: string
   estado?: boolean
-  user_id?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   location: Prisma.LocationCreateNestedOneWithoutCasesInput
+  user?: Prisma.UserCreateNestedOneWithoutCasesInput
   alerts?: Prisma.AlertCreateNestedManyWithoutCaseInput
 }
 
@@ -372,10 +375,10 @@ export type CaseUpdateInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   location?: Prisma.LocationUpdateOneRequiredWithoutCasesNestedInput
+  user?: Prisma.UserUpdateOneWithoutCasesNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutCaseNestedInput
 }
 
@@ -412,7 +415,6 @@ export type CaseUpdateManyMutationInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -566,15 +568,57 @@ export type CaseUpdateOneRequiredWithoutAlertsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CaseUpdateToOneWithWhereWithoutAlertsInput, Prisma.CaseUpdateWithoutAlertsInput>, Prisma.CaseUncheckedUpdateWithoutAlertsInput>
 }
 
+export type CaseCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutUserInput, Prisma.CaseUncheckedCreateWithoutUserInput> | Prisma.CaseCreateWithoutUserInput[] | Prisma.CaseUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutUserInput | Prisma.CaseCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CaseCreateManyUserInputEnvelope
+  connect?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+}
+
+export type CaseUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutUserInput, Prisma.CaseUncheckedCreateWithoutUserInput> | Prisma.CaseCreateWithoutUserInput[] | Prisma.CaseUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutUserInput | Prisma.CaseCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CaseCreateManyUserInputEnvelope
+  connect?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+}
+
+export type CaseUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutUserInput, Prisma.CaseUncheckedCreateWithoutUserInput> | Prisma.CaseCreateWithoutUserInput[] | Prisma.CaseUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutUserInput | Prisma.CaseCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CaseUpsertWithWhereUniqueWithoutUserInput | Prisma.CaseUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CaseCreateManyUserInputEnvelope
+  set?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  disconnect?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  delete?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  connect?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  update?: Prisma.CaseUpdateWithWhereUniqueWithoutUserInput | Prisma.CaseUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CaseUpdateManyWithWhereWithoutUserInput | Prisma.CaseUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.CaseScalarWhereInput | Prisma.CaseScalarWhereInput[]
+}
+
+export type CaseUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CaseCreateWithoutUserInput, Prisma.CaseUncheckedCreateWithoutUserInput> | Prisma.CaseCreateWithoutUserInput[] | Prisma.CaseUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CaseCreateOrConnectWithoutUserInput | Prisma.CaseCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CaseUpsertWithWhereUniqueWithoutUserInput | Prisma.CaseUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CaseCreateManyUserInputEnvelope
+  set?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  disconnect?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  delete?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  connect?: Prisma.CaseWhereUniqueInput | Prisma.CaseWhereUniqueInput[]
+  update?: Prisma.CaseUpdateWithWhereUniqueWithoutUserInput | Prisma.CaseUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CaseUpdateManyWithWhereWithoutUserInput | Prisma.CaseUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.CaseScalarWhereInput | Prisma.CaseScalarWhereInput[]
+}
+
 export type CaseCreateWithoutLocationInput = {
   first_name: string
   last_name: string
   age: number
   description: string
   estado?: boolean
-  user_id?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutCasesInput
   alerts?: Prisma.AlertCreateNestedManyWithoutCaseInput
 }
 
@@ -639,10 +683,10 @@ export type CaseCreateWithoutAlertsInput = {
   age: number
   description: string
   estado?: boolean
-  user_id?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   location: Prisma.LocationCreateNestedOneWithoutCasesInput
+  user?: Prisma.UserCreateNestedOneWithoutCasesInput
 }
 
 export type CaseUncheckedCreateWithoutAlertsInput = {
@@ -680,10 +724,10 @@ export type CaseUpdateWithoutAlertsInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   location?: Prisma.LocationUpdateOneRequiredWithoutCasesNestedInput
+  user?: Prisma.UserUpdateOneWithoutCasesNestedInput
 }
 
 export type CaseUncheckedUpdateWithoutAlertsInput = {
@@ -697,6 +741,57 @@ export type CaseUncheckedUpdateWithoutAlertsInput = {
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CaseCreateWithoutUserInput = {
+  first_name: string
+  last_name: string
+  age: number
+  description: string
+  estado?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  location: Prisma.LocationCreateNestedOneWithoutCasesInput
+  alerts?: Prisma.AlertCreateNestedManyWithoutCaseInput
+}
+
+export type CaseUncheckedCreateWithoutUserInput = {
+  id?: number
+  first_name: string
+  last_name: string
+  age: number
+  description: string
+  estado?: boolean
+  location_id: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutCaseInput
+}
+
+export type CaseCreateOrConnectWithoutUserInput = {
+  where: Prisma.CaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.CaseCreateWithoutUserInput, Prisma.CaseUncheckedCreateWithoutUserInput>
+}
+
+export type CaseCreateManyUserInputEnvelope = {
+  data: Prisma.CaseCreateManyUserInput | Prisma.CaseCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type CaseUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.CaseWhereUniqueInput
+  update: Prisma.XOR<Prisma.CaseUpdateWithoutUserInput, Prisma.CaseUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.CaseCreateWithoutUserInput, Prisma.CaseUncheckedCreateWithoutUserInput>
+}
+
+export type CaseUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.CaseWhereUniqueInput
+  data: Prisma.XOR<Prisma.CaseUpdateWithoutUserInput, Prisma.CaseUncheckedUpdateWithoutUserInput>
+}
+
+export type CaseUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.CaseScalarWhereInput
+  data: Prisma.XOR<Prisma.CaseUpdateManyMutationInput, Prisma.CaseUncheckedUpdateManyWithoutUserInput>
 }
 
 export type CaseCreateManyLocationInput = {
@@ -717,9 +812,9 @@ export type CaseUpdateWithoutLocationInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutCasesNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutCaseNestedInput
 }
 
@@ -744,6 +839,55 @@ export type CaseUncheckedUpdateManyWithoutLocationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CaseCreateManyUserInput = {
+  id?: number
+  first_name: string
+  last_name: string
+  age: number
+  description: string
+  estado?: boolean
+  location_id: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CaseUpdateWithoutUserInput = {
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  age?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.LocationUpdateOneRequiredWithoutCasesNestedInput
+  alerts?: Prisma.AlertUpdateManyWithoutCaseNestedInput
+}
+
+export type CaseUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  age?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  alerts?: Prisma.AlertUncheckedUpdateManyWithoutCaseNestedInput
+}
+
+export type CaseUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  age?: Prisma.IntFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  location_id?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -791,6 +935,7 @@ export type CaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Case$userArgs<ExtArgs>
   alerts?: boolean | Prisma.Case$alertsArgs<ExtArgs>
   _count?: boolean | Prisma.CaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["case"]>
@@ -807,6 +952,7 @@ export type CaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Case$userArgs<ExtArgs>
 }, ExtArgs["result"]["case"]>
 
 export type CaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -821,6 +967,7 @@ export type CaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   createdAt?: boolean
   updatedAt?: boolean
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Case$userArgs<ExtArgs>
 }, ExtArgs["result"]["case"]>
 
 export type CaseSelectScalar = {
@@ -839,20 +986,24 @@ export type CaseSelectScalar = {
 export type CaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "age" | "description" | "estado" | "location_id" | "user_id" | "createdAt" | "updatedAt", ExtArgs["result"]["case"]>
 export type CaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Case$userArgs<ExtArgs>
   alerts?: boolean | Prisma.Case$alertsArgs<ExtArgs>
   _count?: boolean | Prisma.CaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Case$userArgs<ExtArgs>
 }
 export type CaseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   location?: boolean | Prisma.LocationDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Case$userArgs<ExtArgs>
 }
 
 export type $CasePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Case"
   objects: {
     location: Prisma.$LocationPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs> | null
     alerts: Prisma.$AlertPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1261,6 +1412,7 @@ readonly fields: CaseFieldRefs;
 export interface Prisma__CaseClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   location<T extends Prisma.LocationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LocationDefaultArgs<ExtArgs>>): Prisma.Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.Case$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Case$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   alerts<T extends Prisma.Case$alertsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Case$alertsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1699,6 +1851,25 @@ export type CaseDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Cases to delete.
    */
   limit?: number
+}
+
+/**
+ * Case.user
+ */
+export type Case$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

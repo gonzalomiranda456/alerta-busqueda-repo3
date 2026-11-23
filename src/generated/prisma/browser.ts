@@ -32,3 +32,8 @@ export type Case = Prisma.CaseModel
  * 
  */
 export type Alert = Prisma.AlertModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
