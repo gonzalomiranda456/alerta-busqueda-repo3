@@ -1,34 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { LocationsService } from './locations.service';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
+import { CreateProvinceDto } from './dto/create-province.dto';
+import { CreateMunicipalityDto } from './dto/create-municipality.dto';
 
 @Controller('locations')
 export class LocationsController {
   constructor(private readonly locationsService: LocationsService) {}
 
-  @Post()
-  create(@Body() createLocationDto: CreateLocationDto) {
-    return this.locationsService.create(createLocationDto);
+  @Post('provinces')
+  createProvince(@Body() createProvinceDto: CreateProvinceDto) {
+    return this.locationsService.createProvince(createProvinceDto);
   }
 
-  @Get()
-  findAll() {
-    return this.locationsService.findAll();
+  @Get('provinces')
+  findAllProvinces() {
+    return this.locationsService.findAllProvinces();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.locationsService.findOne(+id);
+  @Post('municipalities')
+  createMunicipality(@Body() createMunicipalityDto: CreateMunicipalityDto) {
+    return this.locationsService.createMunicipality(createMunicipalityDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
-    return this.locationsService.update(+id, updateLocationDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.locationsService.remove(+id);
+  @Get('provinces/:provinceId/municipalities')
+  findMunicipalitiesByProvince(
+    @Param('provinceId', ParseIntPipe) provinceId: number,
+  ) {
+    return this.locationsService.findMunicipalitiesByProvince(provinceId);
   }
 }

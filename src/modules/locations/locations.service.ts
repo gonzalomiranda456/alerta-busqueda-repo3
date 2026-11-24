@@ -1,51 +1,82 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
+import { CreateProvinceDto } from './dto/create-province.dto';
+import { CreateMunicipalityDto } from './dto/create-municipality.dto';
 
 @Injectable()
 export class LocationsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createLocationDto: CreateLocationDto) {
-    return this.prisma.location.create({
-      data: createLocationDto,
-    });
-  }
-
-  async findAll() {
-    return this.prisma.location.findMany({
-      orderBy: { id: 'asc' },
-    });
-  }
-
-  async findOne(id: number) {
-    const location = await this.prisma.location.findUnique({
-      where: { id },
-      include: { cases: true },
+  async createProvince(createProvinceDto: CreateProvinceDto) {
+    const existingProvince = await this.prisma.province.findUnique({
+      where: { name: createProvinceDto.name },
     });
 
-    if (!location) {
-      throw new NotFoundException(`No se encontró la ubicación con ID ${id}`);
+    if (existingProvince) {
+      throw new ConflictException(
+        `La provincia "${createProvinceDto.name}" ya se encuentra registrada.`,
+      );
     }
 
-    return location;
-  }
-
-  async update(id: number, updateLocationDto: UpdateLocationDto) {
-    await this.findOne(id);
-
-    return this.prisma.location.update({
-      where: { id },
-      data: updateLocationDto,
+    return this.prisma.province.create({
+      data: createProvinceDto,
     });
   }
 
-  async remove(id: number) {
-    await this.findOne(id);
+  async findAllProvinces() {
+    return this.prisma.province.findMany({
+      orderBy: { name: 'asc' },
+    });
+  }
 
-    return this.prisma.location.delete({
-      where: { id },
+  async createMunicipality(createMunicipalityDto: CreateMunicipalityDto) {
+    const province = await this.prisma.province.findUnique({
+      where: { id: createMunicipalityDto.province_id },
+    });
+
+    if (!province) {
+      throw new NotFoundException(
+        `No existe una provincia con ID ${createMunicipalityDto.province_id}.`,
+      );
+    }
+
+    const existingMunicipality = await this.prisma.municipality.findFirst({
+      where: {
+        name: createMunicipalityDto.name,
+        province_id: createMunicipalityDto.province_id,
+      },
+    });
+
+    if (existingMunicipality) {
+      throw new ConflictException(
+        `El municipio "${createMunicipalityDto.name}" ya existe en ${province.name}.`,
+      );
+    }
+
+    return this.prisma.municipality.create({
+      data: createMunicipalityDto,
+      include: { province: true },
+    });
+  }
+
+  async findMunicipalitiesByProvince(provinceId: number) {
+    const province = await this.prisma.province.findUnique({
+      where: { id: provinceId },
+    });
+
+    if (!province) {
+      throw new NotFoundException(
+        `No se encontró la provincia con ID ${provinceId}.`,
+      );
+    }
+
+    return this.prisma.municipality.findMany({
+      where: { province_id: provinceId },
+      orderBy: { name: 'asc' },
     });
   }
 }
