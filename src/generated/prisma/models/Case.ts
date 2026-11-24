@@ -28,14 +28,12 @@ export type AggregateCase = {
 
 export type CaseAvgAggregateOutputType = {
   id: number | null
-  age: number | null
   municipality_id: number | null
   user_id: number | null
 }
 
 export type CaseSumAggregateOutputType = {
   id: number | null
-  age: number | null
   municipality_id: number | null
   user_id: number | null
 }
@@ -44,7 +42,7 @@ export type CaseMinAggregateOutputType = {
   id: number | null
   first_name: string | null
   last_name: string | null
-  age: number | null
+  birth_date: Date | null
   description: string | null
   estado: boolean | null
   municipality_id: number | null
@@ -57,7 +55,7 @@ export type CaseMaxAggregateOutputType = {
   id: number | null
   first_name: string | null
   last_name: string | null
-  age: number | null
+  birth_date: Date | null
   description: string | null
   estado: boolean | null
   municipality_id: number | null
@@ -70,7 +68,7 @@ export type CaseCountAggregateOutputType = {
   id: number
   first_name: number
   last_name: number
-  age: number
+  birth_date: number
   description: number
   estado: number
   municipality_id: number
@@ -83,14 +81,12 @@ export type CaseCountAggregateOutputType = {
 
 export type CaseAvgAggregateInputType = {
   id?: true
-  age?: true
   municipality_id?: true
   user_id?: true
 }
 
 export type CaseSumAggregateInputType = {
   id?: true
-  age?: true
   municipality_id?: true
   user_id?: true
 }
@@ -99,7 +95,7 @@ export type CaseMinAggregateInputType = {
   id?: true
   first_name?: true
   last_name?: true
-  age?: true
+  birth_date?: true
   description?: true
   estado?: true
   municipality_id?: true
@@ -112,7 +108,7 @@ export type CaseMaxAggregateInputType = {
   id?: true
   first_name?: true
   last_name?: true
-  age?: true
+  birth_date?: true
   description?: true
   estado?: true
   municipality_id?: true
@@ -125,7 +121,7 @@ export type CaseCountAggregateInputType = {
   id?: true
   first_name?: true
   last_name?: true
-  age?: true
+  birth_date?: true
   description?: true
   estado?: true
   municipality_id?: true
@@ -225,7 +221,7 @@ export type CaseGroupByOutputType = {
   id: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date
   description: string
   estado: boolean
   municipality_id: number
@@ -261,7 +257,7 @@ export type CaseWhereInput = {
   id?: Prisma.IntFilter<"Case"> | number
   first_name?: Prisma.StringFilter<"Case"> | string
   last_name?: Prisma.StringFilter<"Case"> | string
-  age?: Prisma.IntFilter<"Case"> | number
+  birth_date?: Prisma.DateTimeFilter<"Case"> | Date | string
   description?: Prisma.StringFilter<"Case"> | string
   estado?: Prisma.BoolFilter<"Case"> | boolean
   municipality_id?: Prisma.IntFilter<"Case"> | number
@@ -277,7 +273,7 @@ export type CaseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
-  age?: Prisma.SortOrder
+  birth_date?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
@@ -296,7 +292,7 @@ export type CaseWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CaseWhereInput | Prisma.CaseWhereInput[]
   first_name?: Prisma.StringFilter<"Case"> | string
   last_name?: Prisma.StringFilter<"Case"> | string
-  age?: Prisma.IntFilter<"Case"> | number
+  birth_date?: Prisma.DateTimeFilter<"Case"> | Date | string
   description?: Prisma.StringFilter<"Case"> | string
   estado?: Prisma.BoolFilter<"Case"> | boolean
   municipality_id?: Prisma.IntFilter<"Case"> | number
@@ -312,7 +308,7 @@ export type CaseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
-  age?: Prisma.SortOrder
+  birth_date?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
@@ -333,7 +329,7 @@ export type CaseScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Case"> | number
   first_name?: Prisma.StringWithAggregatesFilter<"Case"> | string
   last_name?: Prisma.StringWithAggregatesFilter<"Case"> | string
-  age?: Prisma.IntWithAggregatesFilter<"Case"> | number
+  birth_date?: Prisma.DateTimeWithAggregatesFilter<"Case"> | Date | string
   description?: Prisma.StringWithAggregatesFilter<"Case"> | string
   estado?: Prisma.BoolWithAggregatesFilter<"Case"> | boolean
   municipality_id?: Prisma.IntWithAggregatesFilter<"Case"> | number
@@ -345,7 +341,7 @@ export type CaseScalarWhereWithAggregatesInput = {
 export type CaseCreateInput = {
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   createdAt?: Date | string
@@ -359,7 +355,7 @@ export type CaseUncheckedCreateInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   municipality_id: number
@@ -372,7 +368,7 @@ export type CaseUncheckedCreateInput = {
 export type CaseUpdateInput = {
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -386,7 +382,7 @@ export type CaseUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   municipality_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -400,7 +396,7 @@ export type CaseCreateManyInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   municipality_id: number
@@ -412,7 +408,7 @@ export type CaseCreateManyInput = {
 export type CaseUpdateManyMutationInput = {
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,7 +419,7 @@ export type CaseUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   municipality_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -446,7 +442,7 @@ export type CaseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
-  age?: Prisma.SortOrder
+  birth_date?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
@@ -457,7 +453,6 @@ export type CaseCountOrderByAggregateInput = {
 
 export type CaseAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  age?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
 }
@@ -466,7 +461,7 @@ export type CaseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
-  age?: Prisma.SortOrder
+  birth_date?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
@@ -479,7 +474,7 @@ export type CaseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   first_name?: Prisma.SortOrder
   last_name?: Prisma.SortOrder
-  age?: Prisma.SortOrder
+  birth_date?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estado?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
@@ -490,7 +485,6 @@ export type CaseMinOrderByAggregateInput = {
 
 export type CaseSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  age?: Prisma.SortOrder
   municipality_id?: Prisma.SortOrder
   user_id?: Prisma.SortOrder
 }
@@ -613,7 +607,7 @@ export type CaseUncheckedUpdateManyWithoutUserNestedInput = {
 export type CaseCreateWithoutMunicipalityInput = {
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   createdAt?: Date | string
@@ -626,7 +620,7 @@ export type CaseUncheckedCreateWithoutMunicipalityInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   user_id?: number | null
@@ -668,7 +662,7 @@ export type CaseScalarWhereInput = {
   id?: Prisma.IntFilter<"Case"> | number
   first_name?: Prisma.StringFilter<"Case"> | string
   last_name?: Prisma.StringFilter<"Case"> | string
-  age?: Prisma.IntFilter<"Case"> | number
+  birth_date?: Prisma.DateTimeFilter<"Case"> | Date | string
   description?: Prisma.StringFilter<"Case"> | string
   estado?: Prisma.BoolFilter<"Case"> | boolean
   municipality_id?: Prisma.IntFilter<"Case"> | number
@@ -680,7 +674,7 @@ export type CaseScalarWhereInput = {
 export type CaseCreateWithoutAlertsInput = {
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   createdAt?: Date | string
@@ -693,7 +687,7 @@ export type CaseUncheckedCreateWithoutAlertsInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   municipality_id: number
@@ -721,7 +715,7 @@ export type CaseUpdateToOneWithWhereWithoutAlertsInput = {
 export type CaseUpdateWithoutAlertsInput = {
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -734,7 +728,7 @@ export type CaseUncheckedUpdateWithoutAlertsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   municipality_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -746,7 +740,7 @@ export type CaseUncheckedUpdateWithoutAlertsInput = {
 export type CaseCreateWithoutUserInput = {
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   createdAt?: Date | string
@@ -759,7 +753,7 @@ export type CaseUncheckedCreateWithoutUserInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   municipality_id: number
@@ -798,7 +792,7 @@ export type CaseCreateManyMunicipalityInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   user_id?: number | null
@@ -809,7 +803,7 @@ export type CaseCreateManyMunicipalityInput = {
 export type CaseUpdateWithoutMunicipalityInput = {
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -822,7 +816,7 @@ export type CaseUncheckedUpdateWithoutMunicipalityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -835,7 +829,7 @@ export type CaseUncheckedUpdateManyWithoutMunicipalityInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user_id?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -847,7 +841,7 @@ export type CaseCreateManyUserInput = {
   id?: number
   first_name: string
   last_name: string
-  age: number
+  birth_date: Date | string
   description: string
   estado?: boolean
   municipality_id: number
@@ -858,7 +852,7 @@ export type CaseCreateManyUserInput = {
 export type CaseUpdateWithoutUserInput = {
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -871,7 +865,7 @@ export type CaseUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   municipality_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -884,7 +878,7 @@ export type CaseUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   first_name?: Prisma.StringFieldUpdateOperationsInput | string
   last_name?: Prisma.StringFieldUpdateOperationsInput | string
-  age?: Prisma.IntFieldUpdateOperationsInput | number
+  birth_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estado?: Prisma.BoolFieldUpdateOperationsInput | boolean
   municipality_id?: Prisma.IntFieldUpdateOperationsInput | number
@@ -927,7 +921,7 @@ export type CaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   first_name?: boolean
   last_name?: boolean
-  age?: boolean
+  birth_date?: boolean
   description?: boolean
   estado?: boolean
   municipality_id?: boolean
@@ -944,7 +938,7 @@ export type CaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   first_name?: boolean
   last_name?: boolean
-  age?: boolean
+  birth_date?: boolean
   description?: boolean
   estado?: boolean
   municipality_id?: boolean
@@ -959,7 +953,7 @@ export type CaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   first_name?: boolean
   last_name?: boolean
-  age?: boolean
+  birth_date?: boolean
   description?: boolean
   estado?: boolean
   municipality_id?: boolean
@@ -974,7 +968,7 @@ export type CaseSelectScalar = {
   id?: boolean
   first_name?: boolean
   last_name?: boolean
-  age?: boolean
+  birth_date?: boolean
   description?: boolean
   estado?: boolean
   municipality_id?: boolean
@@ -983,7 +977,7 @@ export type CaseSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "age" | "description" | "estado" | "municipality_id" | "user_id" | "createdAt" | "updatedAt", ExtArgs["result"]["case"]>
+export type CaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "first_name" | "last_name" | "birth_date" | "description" | "estado" | "municipality_id" | "user_id" | "createdAt" | "updatedAt", ExtArgs["result"]["case"]>
 export type CaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   municipality?: boolean | Prisma.MunicipalityDefaultArgs<ExtArgs>
   user?: boolean | Prisma.Case$userArgs<ExtArgs>
@@ -1010,7 +1004,7 @@ export type $CasePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     first_name: string
     last_name: string
-    age: number
+    birth_date: Date
     description: string
     estado: boolean
     municipality_id: number
@@ -1446,7 +1440,7 @@ export interface CaseFieldRefs {
   readonly id: Prisma.FieldRef<"Case", 'Int'>
   readonly first_name: Prisma.FieldRef<"Case", 'String'>
   readonly last_name: Prisma.FieldRef<"Case", 'String'>
-  readonly age: Prisma.FieldRef<"Case", 'Int'>
+  readonly birth_date: Prisma.FieldRef<"Case", 'DateTime'>
   readonly description: Prisma.FieldRef<"Case", 'String'>
   readonly estado: Prisma.FieldRef<"Case", 'Boolean'>
   readonly municipality_id: Prisma.FieldRef<"Case", 'Int'>

@@ -37,7 +37,10 @@ export class CasesService {
     }
 
     return this.prisma.case.create({
-      data: createCaseDto,
+      data: {
+        ...createCaseDto,
+        birth_date: new Date(createCaseDto.birth_date),
+      },
       include: {
         municipality: municipalityInclude,
       },
@@ -99,7 +102,12 @@ export class CasesService {
 
     return this.prisma.case.update({
       where: { id },
-      data: updateCaseDto,
+      data: {
+        ...updateCaseDto,
+        ...(updateCaseDto.birth_date && {
+          birth_date: new Date(updateCaseDto.birth_date),
+        }),
+      },
       include: {
         municipality: municipalityInclude,
       },

@@ -1,14 +1,13 @@
 import {
   IsBoolean,
+  IsDateString,
   IsDefined,
   IsInt,
   IsNotEmpty,
   IsOptional,
   IsPositive,
   IsString,
-  Max,
   MaxLength,
-  Min,
   MinLength,
 } from 'class-validator';
 
@@ -24,20 +23,31 @@ export class CreateCaseDto {
   @IsString({ message: 'El apellido debe ser una cadena de texto.' })
   @IsNotEmpty({ message: 'El apellido no puede estar vacío.' })
   @MinLength(2, { message: 'El apellido debe tener al menos 2 caracteres.' })
-  @MaxLength(100, { message: 'El apellido no puede superar los 100 caracteres.', })
+  @MaxLength(100, {
+    message: 'El apellido no puede superar los 100 caracteres.',
+  })
   last_name: string;
 
-  @IsDefined({ message: 'La edad es obligatoria.' })
-  @IsInt({ message: 'La edad debe ser un número entero.' })
-  @Min(0, { message: 'La edad no puede ser menor a 0.' })
-  @Max(120, { message: 'La edad no puede superar los 120 años.' })
-  age: number;
+  @IsDefined({ message: 'La fecha de nacimiento es obligatoria.' })
+  @IsDateString(
+    {},
+    {
+      message:
+        'La fecha de nacimiento debe tener un formato válido (YYYY-MM-DD).',
+    },
+  )
+  @IsNotEmpty({ message: 'La fecha de nacimiento no puede estar vacía.' })
+  birth_date: string;
 
   @IsDefined({ message: 'La descripción es obligatoria.' })
   @IsString({ message: 'La descripción debe ser una cadena de texto.' })
   @IsNotEmpty({ message: 'La descripción no puede estar vacía.' })
-  @MinLength(10, { message: 'La descripción debe tener al menos 10 caracteres.', })
-  @MaxLength(2000, { message: 'La descripción no puede superar los 2000 caracteres.', })
+  @MinLength(10, {
+    message: 'La descripción debe tener al menos 10 caracteres.',
+  })
+  @MaxLength(2000, {
+    message: 'La descripción no puede superar los 2000 caracteres.',
+  })
   description: string;
 
   @IsOptional()

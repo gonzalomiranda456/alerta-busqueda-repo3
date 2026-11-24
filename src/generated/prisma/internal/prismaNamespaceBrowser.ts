@@ -99,7 +99,7 @@ export const CaseScalarFieldEnum = {
   id: 'id',
   first_name: 'first_name',
   last_name: 'last_name',
-  age: 'age',
+  birth_date: 'birth_date',
   description: 'description',
   estado: 'estado',
   municipality_id: 'municipality_id',
