@@ -3,31 +3,51 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateCaseDto } from './dto/create-case.dto';
 import { UpdateCaseDto } from './dto/update-case.dto';
 
+const municipalityInclude = {
+  include: {
+    province: true,
+  },
+};
+
 @Injectable()
 export class CasesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createCaseDto: CreateCaseDto) {
-    const locationExists = await this.prisma.location.findUnique({
-      where: { id: createCaseDto.location_id },
+    const municipalityExists = await this.prisma.municipality.findUnique({
+      where: { id: createCaseDto.municipality_id },
     });
 
-    if (!locationExists) {
+    if (!municipalityExists) {
       throw new NotFoundException(
-        `No existe una ubicación con ID ${createCaseDto.location_id}`,
+        `No existe un municipio con ID ${createCaseDto.municipality_id}.`,
       );
+    }
+
+    if (createCaseDto.user_id) {
+      const userExists = await this.prisma.user.findUnique({
+        where: { id: createCaseDto.user_id },
+      });
+
+      if (!userExists) {
+        throw new NotFoundException(
+          `No existe un usuario con ID ${createCaseDto.user_id}.`,
+        );
+      }
     }
 
     return this.prisma.case.create({
       data: createCaseDto,
-      include: { location: true },
+      include: {
+        municipality: municipalityInclude,
+      },
     });
   }
 
   async findAll() {
     return this.prisma.case.findMany({
       include: {
-        location: true,
+        municipality: municipalityInclude,
         alerts: true,
       },
       orderBy: { createdAt: 'desc' },
@@ -38,13 +58,13 @@ export class CasesService {
     const foundCase = await this.prisma.case.findUnique({
       where: { id },
       include: {
-        location: true,
+        municipality: municipalityInclude,
         alerts: true,
       },
     });
 
     if (!foundCase) {
-      throw new NotFoundException(`No se encontró el caso con ID ${id}`);
+      throw new NotFoundException(`No se encontró el caso con ID ${id}.`);
     }
 
     return foundCase;
@@ -53,14 +73,26 @@ export class CasesService {
   async update(id: number, updateCaseDto: UpdateCaseDto) {
     await this.findOne(id);
 
-    if (updateCaseDto.location_id) {
-      const locationExists = await this.prisma.location.findUnique({
-        where: { id: updateCaseDto.location_id },
+    if (updateCaseDto.municipality_id) {
+      const municipalityExists = await this.prisma.municipality.findUnique({
+        where: { id: updateCaseDto.municipality_id },
       });
 
-      if (!locationExists) {
+      if (!municipalityExists) {
         throw new NotFoundException(
-          `No existe una ubicación con ID ${updateCaseDto.location_id}`,
+          `No existe un municipio con ID ${updateCaseDto.municipality_id}.`,
+        );
+      }
+    }
+
+    if (updateCaseDto.user_id) {
+      const userExists = await this.prisma.user.findUnique({
+        where: { id: updateCaseDto.user_id },
+      });
+
+      if (!userExists) {
+        throw new NotFoundException(
+          `No existe un usuario con ID ${updateCaseDto.user_id}.`,
         );
       }
     }
@@ -68,7 +100,9 @@ export class CasesService {
     return this.prisma.case.update({
       where: { id },
       data: updateCaseDto,
-      include: { location: true },
+      include: {
+        municipality: municipalityInclude,
+      },
     });
   }
 

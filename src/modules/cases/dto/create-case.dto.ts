@@ -24,9 +24,7 @@ export class CreateCaseDto {
   @IsString({ message: 'El apellido debe ser una cadena de texto.' })
   @IsNotEmpty({ message: 'El apellido no puede estar vacío.' })
   @MinLength(2, { message: 'El apellido debe tener al menos 2 caracteres.' })
-  @MaxLength(100, {
-    message: 'El apellido no puede superar los 100 caracteres.',
-  })
+  @MaxLength(100, { message: 'El apellido no puede superar los 100 caracteres.', })
   last_name: string;
 
   @IsDefined({ message: 'La edad es obligatoria.' })
@@ -38,23 +36,21 @@ export class CreateCaseDto {
   @IsDefined({ message: 'La descripción es obligatoria.' })
   @IsString({ message: 'La descripción debe ser una cadena de texto.' })
   @IsNotEmpty({ message: 'La descripción no puede estar vacía.' })
-  @MinLength(10, {
-    message: 'La descripción debe tener al menos 10 caracteres.',
-  })
-  @MaxLength(2000, {
-    message: 'La descripción no puede superar los 2000 caracteres.',
-  })
+  @MinLength(10, { message: 'La descripción debe tener al menos 10 caracteres.', })
+  @MaxLength(2000, { message: 'La descripción no puede superar los 2000 caracteres.', })
   description: string;
 
   @IsOptional()
   @IsBoolean({ message: 'El estado debe ser verdadero (true) o falso (false).' })
   estado?: boolean;
 
-  @IsDefined({ message: 'El ID de la ubicación (location_id) es obligatorio.' })
-  @IsInt({ message: 'El ID de la ubicación debe ser un número entero.' })
-  @IsPositive({ message: 'El ID de la ubicación debe ser un número positivo.' })
-  @IsNotEmpty({ message: 'El ID de la ubicación no puede estar vacío.' })
-  location_id: number;
+  @IsDefined({
+    message: 'El ID del municipio (municipality_id) es obligatorio.',
+  })
+  @IsInt({ message: 'El ID del municipio debe ser un número entero.' })
+  @IsPositive({ message: 'El ID del municipio debe ser un número positivo.' })
+  @IsNotEmpty({ message: 'El ID del municipio no puede estar vacío.' })
+  municipality_id: number;
 
   @IsOptional()
   @IsInt({ message: 'El ID del usuario debe ser un número entero.' })
