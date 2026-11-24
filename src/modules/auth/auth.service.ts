@@ -1,26 +1,86 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  async register(createUserDto: CreateUserDto) {
+    const existingUser = await this.prisma.user.findFirst({
+      where: {
+        OR: [{ email: createUserDto.email }, { dni: createUserDto.dni }],
+      },
+    });
+
+    if (existingUser) {
+      throw new ConflictException(
+        'Ya existe un usuario registrado con ese correo electrónico o DNI.',
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
+    const user = await this.prisma.user.create({
+      data: {
+        ...createUserDto,
+        password: hashedPassword,
+      },
+      select: {
+        id: true,
+        full_name: true,
+        dni: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return {
+      message: 'Usuario registrado correctamente.',
+      user,
+    };
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async login(loginDto: LoginDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: loginDto.email },
+    });
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    if (!user) {
+      throw new UnauthorizedException('Credenciales inválidas.');
+    }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    const isPasswordValid = await bcrypt.compare(
+      loginDto.password,
+      user.password,
+    );
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Credenciales inválidas.');
+    }
+
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      full_name: user.full_name,
+    };
+
+    const access_token = await this.jwtService.signAsync(payload);
+
+    return {
+      message: 'Inicio de sesión exitoso.',
+      access_token,
+    };
   }
 }

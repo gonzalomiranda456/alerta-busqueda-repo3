@@ -6,6 +6,7 @@ import { CasesModule } from '../cases/cases.module';
 import { LocationsModule } from '../locations/locations.module';
 import { AlertsModule } from '../alerts/alerts.module';
 import { UsersModule } from '../users/users.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UsersModule } from '../users/users.module';
     LocationsModule,
     AlertsModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
