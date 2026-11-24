@@ -24,6 +24,11 @@ export class LocationsController {
     return this.locationsService.findAllProvinces();
   }
 
+  @Get('provinces/:id')
+  findOneProvince(@Param('id', ParseIntPipe) id: number) {
+    return this.locationsService.findOneProvince(id);
+  }
+
   @Post('municipalities')
   createMunicipality(@Body() createMunicipalityDto: CreateMunicipalityDto) {
     return this.locationsService.createMunicipality(createMunicipalityDto);
@@ -34,5 +39,10 @@ export class LocationsController {
     @Param('provinceId', ParseIntPipe) provinceId: number,
   ) {
     return this.locationsService.findMunicipalitiesByProvince(provinceId);
+  }
+  
+  @Get('municipalities/:id')
+  findOneMunicipality(@Param('id', ParseIntPipe) id: number) {
+    return this.locationsService.findOneMunicipality(id);
   }
 }

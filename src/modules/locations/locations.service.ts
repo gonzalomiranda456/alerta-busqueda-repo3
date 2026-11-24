@@ -33,6 +33,25 @@ export class LocationsService {
     });
   }
 
+  async findOneProvince(id: number) {
+    const province = await this.prisma.province.findUnique({
+      where: { id },
+      include: {
+        municipalities: {
+          orderBy: { name: 'asc' },
+        },
+      },
+    });
+
+    if (!province) {
+      throw new NotFoundException(
+        `No se encontró la provincia con ID ${id}.`,
+      );
+    }
+
+    return province;
+  }
+
   async createMunicipality(createMunicipalityDto: CreateMunicipalityDto) {
     const province = await this.prisma.province.findUnique({
       where: { id: createMunicipalityDto.province_id },
@@ -78,5 +97,22 @@ export class LocationsService {
       where: { province_id: provinceId },
       orderBy: { name: 'asc' },
     });
+  }
+
+  async findOneMunicipality(id: number) {
+    const municipality = await this.prisma.municipality.findUnique({
+      where: { id },
+      include: {
+        province: true,
+      },
+    });
+
+    if (!municipality) {
+      throw new NotFoundException(
+        `No se encontró el municipio con ID ${id}.`,
+      );
+    }
+
+    return municipality;
   }
 }
