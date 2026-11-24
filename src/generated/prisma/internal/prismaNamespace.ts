@@ -397,7 +397,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  Location: 'Location',
+  Province: 'Province',
+  Municipality: 'Municipality',
   Case: 'Case',
   Alert: 'Alert',
   User: 'User'
@@ -416,81 +417,155 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "location" | "case" | "alert" | "user"
+    modelProps: "province" | "municipality" | "case" | "alert" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
-    Location: {
-      payload: Prisma.$LocationPayload<ExtArgs>
-      fields: Prisma.LocationFieldRefs
+    Province: {
+      payload: Prisma.$ProvincePayload<ExtArgs>
+      fields: Prisma.ProvinceFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.LocationFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload> | null
+          args: Prisma.ProvinceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.LocationFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          args: Prisma.ProvinceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>
         }
         findFirst: {
-          args: Prisma.LocationFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload> | null
+          args: Prisma.ProvinceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.LocationFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          args: Prisma.ProvinceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>
         }
         findMany: {
-          args: Prisma.LocationFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+          args: Prisma.ProvinceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>[]
         }
         create: {
-          args: Prisma.LocationCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          args: Prisma.ProvinceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>
         }
         createMany: {
-          args: Prisma.LocationCreateManyArgs<ExtArgs>
+          args: Prisma.ProvinceCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.LocationCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+          args: Prisma.ProvinceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>[]
         }
         delete: {
-          args: Prisma.LocationDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          args: Prisma.ProvinceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>
         }
         update: {
-          args: Prisma.LocationUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          args: Prisma.ProvinceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>
         }
         deleteMany: {
-          args: Prisma.LocationDeleteManyArgs<ExtArgs>
+          args: Prisma.ProvinceDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.LocationUpdateManyArgs<ExtArgs>
+          args: Prisma.ProvinceUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.LocationUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+          args: Prisma.ProvinceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>[]
         }
         upsert: {
-          args: Prisma.LocationUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          args: Prisma.ProvinceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProvincePayload>
         }
         aggregate: {
-          args: Prisma.LocationAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateLocation>
+          args: Prisma.ProvinceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProvince>
         }
         groupBy: {
-          args: Prisma.LocationGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.LocationGroupByOutputType>[]
+          args: Prisma.ProvinceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProvinceGroupByOutputType>[]
         }
         count: {
-          args: Prisma.LocationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.LocationCountAggregateOutputType> | number
+          args: Prisma.ProvinceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProvinceCountAggregateOutputType> | number
+        }
+      }
+    }
+    Municipality: {
+      payload: Prisma.$MunicipalityPayload<ExtArgs>
+      fields: Prisma.MunicipalityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MunicipalityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MunicipalityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>
+        }
+        findFirst: {
+          args: Prisma.MunicipalityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MunicipalityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>
+        }
+        findMany: {
+          args: Prisma.MunicipalityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>[]
+        }
+        create: {
+          args: Prisma.MunicipalityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>
+        }
+        createMany: {
+          args: Prisma.MunicipalityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MunicipalityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>[]
+        }
+        delete: {
+          args: Prisma.MunicipalityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>
+        }
+        update: {
+          args: Prisma.MunicipalityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>
+        }
+        deleteMany: {
+          args: Prisma.MunicipalityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MunicipalityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MunicipalityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>[]
+        }
+        upsert: {
+          args: Prisma.MunicipalityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MunicipalityPayload>
+        }
+        aggregate: {
+          args: Prisma.MunicipalityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMunicipality>
+        }
+        groupBy: {
+          args: Prisma.MunicipalityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MunicipalityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MunicipalityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MunicipalityCountAggregateOutputType> | number
         }
       }
     }
@@ -755,15 +830,25 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const LocationScalarFieldEnum = {
+export const ProvinceScalarFieldEnum = {
   id: 'id',
-  province: 'province',
-  city: 'city',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+export type ProvinceScalarFieldEnum = (typeof ProvinceScalarFieldEnum)[keyof typeof ProvinceScalarFieldEnum]
+
+
+export const MunicipalityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  province_id: 'province_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MunicipalityScalarFieldEnum = (typeof MunicipalityScalarFieldEnum)[keyof typeof MunicipalityScalarFieldEnum]
 
 
 export const CaseScalarFieldEnum = {
@@ -773,7 +858,7 @@ export const CaseScalarFieldEnum = {
   age: 'age',
   description: 'description',
   estado: 'estado',
-  location_id: 'location_id',
+  municipality_id: 'municipality_id',
   user_id: 'user_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1050,7 +1135,8 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
  */
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
-  location?: Prisma.LocationOmit
+  province?: Prisma.ProvinceOmit
+  municipality?: Prisma.MunicipalityOmit
   case?: Prisma.CaseOmit
   alert?: Prisma.AlertOmit
   user?: Prisma.UserOmit

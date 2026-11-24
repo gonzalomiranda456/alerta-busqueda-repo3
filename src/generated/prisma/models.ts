@@ -8,7 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Location.js'
+export type * from './models/Province.js'
+export type * from './models/Municipality.js'
 export type * from './models/Case.js'
 export type * from './models/Alert.js'
 export type * from './models/User.js'

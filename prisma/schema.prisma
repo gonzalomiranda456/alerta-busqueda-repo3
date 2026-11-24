@@ -7,29 +7,40 @@ datasource db {
   provider = "postgresql"
 }
 
-model Location {
-  id        Int      @id @default(autoincrement())
-  province  String   @db.VarChar(100)
-  city      String   @db.VarChar(100)
-  cases     Case[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Province {
+  id             Int            @id @default(autoincrement())
+  name           String         @unique @db.VarChar(100)
+  municipalities Municipality[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model Municipality {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  province_id Int
+  province    Province @relation(fields: [province_id], references: [id])
+  cases       Case[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([name, province_id])
 }
 
 model Case {
-  id          Int      @id @default(autoincrement())
-  first_name  String   @db.VarChar(100)
-  last_name   String   @db.VarChar(100)
-  age         Int
-  description String   @db.VarChar(2000)
-  estado      Boolean  @default(true)
-  location_id Int
-  location    Location @relation(fields: [location_id], references: [id])
-  user_id     Int?
-  user        User?    @relation(fields: [user_id], references: [id])
-  alerts      Alert[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              Int          @id @default(autoincrement())
+  first_name      String       @db.VarChar(100)
+  last_name       String       @db.VarChar(100)
+  age             Int
+  description     String       @db.VarChar(2000)
+  estado          Boolean      @default(true)
+  municipality_id Int
+  municipality    Municipality @relation(fields: [municipality_id], references: [id])
+  user_id         Int?
+  user            User?        @relation(fields: [user_id], references: [id])
+  alerts          Alert[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }
 
 model Alert {
