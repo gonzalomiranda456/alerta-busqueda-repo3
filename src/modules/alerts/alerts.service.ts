@@ -1,26 +1,76 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateAlertDto } from './dto/create-alert.dto';
 import { UpdateAlertDto } from './dto/update-alert.dto';
 
 @Injectable()
 export class AlertsService {
-  create(createAlertDto: CreateAlertDto) {
-    return 'This action adds a new alert';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createAlertDto: CreateAlertDto) {
+    const caseExists = await this.prisma.case.findUnique({
+      where: { id: createAlertDto.case_id },
+    });
+
+    if (!caseExists) {
+      throw new NotFoundException(
+        `No existe un caso con ID ${createAlertDto.case_id}`,
+      );
+    }
+
+    return this.prisma.alert.create({
+      data: createAlertDto,
+      include: { case: true },
+    });
   }
 
-  findAll() {
-    return `This action returns all alerts`;
+  async findAll() {
+    return this.prisma.alert.findMany({
+      include: { case: true },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} alert`;
+  async findOne(id: number) {
+    const alert = await this.prisma.alert.findUnique({
+      where: { id },
+      include: { case: true },
+    });
+
+    if (!alert) {
+      throw new NotFoundException(`No se encontró la alerta con ID ${id}`);
+    }
+
+    return alert;
   }
 
-  update(id: number, updateAlertDto: UpdateAlertDto) {
-    return `This action updates a #${id} alert`;
+  async update(id: number, updateAlertDto: UpdateAlertDto) {
+    await this.findOne(id);
+
+    if (updateAlertDto.case_id) {
+      const caseExists = await this.prisma.case.findUnique({
+        where: { id: updateAlertDto.case_id },
+      });
+
+      if (!caseExists) {
+        throw new NotFoundException(
+          `No existe un caso con ID ${updateAlertDto.case_id}`,
+        );
+      }
+    }
+
+    return this.prisma.alert.update({
+      where: { id },
+      data: updateAlertDto,
+      include: { case: true },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} alert`;
+  async remove(id: number) {
+    await this.findOne(id);
+
+    return this.prisma.alert.delete({
+      where: { id },
+    });
   }
 }

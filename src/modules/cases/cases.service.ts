@@ -1,26 +1,124 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateCaseDto } from './dto/create-case.dto';
 import { UpdateCaseDto } from './dto/update-case.dto';
 
+const municipalityInclude = {
+  include: {
+    province: true,
+  },
+};
+
 @Injectable()
 export class CasesService {
-  create(createCaseDto: CreateCaseDto) {
-    return 'This action adds a new case';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createCaseDto: CreateCaseDto) {
+    const municipalityExists = await this.prisma.municipality.findUnique({
+      where: { id: createCaseDto.municipality_id },
+    });
+
+    if (!municipalityExists) {
+      throw new NotFoundException(
+        `No existe un municipio con ID ${createCaseDto.municipality_id}.`,
+      );
+    }
+
+    if (createCaseDto.user_id) {
+      const userExists = await this.prisma.user.findUnique({
+        where: { id: createCaseDto.user_id },
+      });
+
+      if (!userExists) {
+        throw new NotFoundException(
+          `No existe un usuario con ID ${createCaseDto.user_id}.`,
+        );
+      }
+    }
+
+    return this.prisma.case.create({
+      data: {
+        ...createCaseDto,
+        birth_date: new Date(createCaseDto.birth_date),
+      },
+      include: {
+        municipality: municipalityInclude,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all cases`;
+  async findAll() {
+    return this.prisma.case.findMany({
+      include: {
+        municipality: municipalityInclude,
+        alerts: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} case`;
+  async findOne(id: number) {
+    const foundCase = await this.prisma.case.findUnique({
+      where: { id },
+      include: {
+        municipality: municipalityInclude,
+        alerts: true,
+      },
+    });
+
+    if (!foundCase) {
+      throw new NotFoundException(`No se encontró el caso con ID ${id}.`);
+    }
+
+    return foundCase;
   }
 
-  update(id: number, updateCaseDto: UpdateCaseDto) {
-    return `This action updates a #${id} case`;
+  async update(id: number, updateCaseDto: UpdateCaseDto) {
+    await this.findOne(id);
+
+    if (updateCaseDto.municipality_id) {
+      const municipalityExists = await this.prisma.municipality.findUnique({
+        where: { id: updateCaseDto.municipality_id },
+      });
+
+      if (!municipalityExists) {
+        throw new NotFoundException(
+          `No existe un municipio con ID ${updateCaseDto.municipality_id}.`,
+        );
+      }
+    }
+
+    if (updateCaseDto.user_id) {
+      const userExists = await this.prisma.user.findUnique({
+        where: { id: updateCaseDto.user_id },
+      });
+
+      if (!userExists) {
+        throw new NotFoundException(
+          `No existe un usuario con ID ${updateCaseDto.user_id}.`,
+        );
+      }
+    }
+
+    return this.prisma.case.update({
+      where: { id },
+      data: {
+        ...updateCaseDto,
+        ...(updateCaseDto.birth_date && {
+          birth_date: new Date(updateCaseDto.birth_date),
+        }),
+      },
+      include: {
+        municipality: municipalityInclude,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} case`;
+  async remove(id: number) {
+    await this.findOne(id);
+
+    return this.prisma.case.delete({
+      where: { id },
+    });
   }
 }
