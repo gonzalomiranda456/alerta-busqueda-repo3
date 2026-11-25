@@ -11,10 +11,12 @@ El proyecto está desarrollado con una arquitectura modular basada en **NestJS**
 ## Tecnologías utilizadas
 Para el desarrollo de esta API se implementaron las siguientes tecnologías:
 
-- **NestJS:** Framework principal para Node.js que permite construir aplicaciones del lado del servidor eficientes, escalables y con una arquitectura fuertemente tipada.
-- **TypeScript:** Lenguaje de programación utilizado para garantizar un tipado estricto y un código más seguro.
-- **PostgreSQL (Neon.tech):** Sistema de gestión de bases de datos relacional alojado en la nube para la persistencia de la información.
-- **Git y GitHub:** Control de versiones siguiendo un flujo de trabajo estructurado mediante ramas (`main` para producción, `dev` para integración, y `feature/*`, `fix/*`, `refactor/*`, `docs/*` para tareas específicas).
+- **NestJS & TypeScript:** Framework principal para Node.js con arquitectura modular y tipado estricto.
+- **PostgreSQL:** Sistema de gestión de bases de datos relacional para la persistencia de la información.
+- **Prisma ORM (v7) & `@prisma/adapter-pg`:** Modelado de datos, migraciones y consultas tipadas sobre PostgreSQL.
+- **JWT (`@nestjs/jwt`) & `bcrypt`:** Autenticación basada en tokens y encriptación segura de contraseñas.
+- **`class-validator` & `class-transformer`:** Validación automática de DTOs y transformación de tipos mediante `ValidationPipe` global.
+- **Git y GitHub:** Control de versiones siguiendo flujo de trabajo por ramas (`main`, `dev`, `feature/*`, `refactor/*`, `chore/*`, `docs/*`).
 
 ## Estructura de Módulos
 El proyecto utiliza una arquitectura de carpetas centralizada en `src/modules/`, dividiendo la lógica en las siguientes entidades:
