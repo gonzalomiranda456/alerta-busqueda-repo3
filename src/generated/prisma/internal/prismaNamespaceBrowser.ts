@@ -51,7 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Location: 'Location',
+  Province: 'Province',
+  Municipality: 'Municipality',
   Case: 'Case',
   Alert: 'Alert',
   User: 'User'
@@ -73,25 +74,35 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const LocationScalarFieldEnum = {
+export const ProvinceScalarFieldEnum = {
   id: 'id',
-  province: 'province',
-  city: 'city',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+export type ProvinceScalarFieldEnum = (typeof ProvinceScalarFieldEnum)[keyof typeof ProvinceScalarFieldEnum]
+
+
+export const MunicipalityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  province_id: 'province_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MunicipalityScalarFieldEnum = (typeof MunicipalityScalarFieldEnum)[keyof typeof MunicipalityScalarFieldEnum]
 
 
 export const CaseScalarFieldEnum = {
   id: 'id',
   first_name: 'first_name',
   last_name: 'last_name',
-  age: 'age',
+  birth_date: 'birth_date',
   description: 'description',
   estado: 'estado',
-  location_id: 'location_id',
+  municipality_id: 'municipality_id',
   user_id: 'user_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

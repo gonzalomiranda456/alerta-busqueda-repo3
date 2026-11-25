@@ -1,14 +1,13 @@
 import {
   IsBoolean,
+  IsDateString,
   IsDefined,
   IsInt,
   IsNotEmpty,
   IsOptional,
   IsPositive,
   IsString,
-  Max,
   MaxLength,
-  Min,
   MinLength,
 } from 'class-validator';
 
@@ -29,11 +28,16 @@ export class CreateCaseDto {
   })
   last_name: string;
 
-  @IsDefined({ message: 'La edad es obligatoria.' })
-  @IsInt({ message: 'La edad debe ser un número entero.' })
-  @Min(0, { message: 'La edad no puede ser menor a 0.' })
-  @Max(120, { message: 'La edad no puede superar los 120 años.' })
-  age: number;
+  @IsDefined({ message: 'La fecha de nacimiento es obligatoria.' })
+  @IsDateString(
+    {},
+    {
+      message:
+        'La fecha de nacimiento debe tener un formato válido (YYYY-MM-DD).',
+    },
+  )
+  @IsNotEmpty({ message: 'La fecha de nacimiento no puede estar vacía.' })
+  birth_date: string;
 
   @IsDefined({ message: 'La descripción es obligatoria.' })
   @IsString({ message: 'La descripción debe ser una cadena de texto.' })
@@ -50,11 +54,13 @@ export class CreateCaseDto {
   @IsBoolean({ message: 'El estado debe ser verdadero (true) o falso (false).' })
   estado?: boolean;
 
-  @IsDefined({ message: 'El ID de la ubicación (location_id) es obligatorio.' })
-  @IsInt({ message: 'El ID de la ubicación debe ser un número entero.' })
-  @IsPositive({ message: 'El ID de la ubicación debe ser un número positivo.' })
-  @IsNotEmpty({ message: 'El ID de la ubicación no puede estar vacío.' })
-  location_id: number;
+  @IsDefined({
+    message: 'El ID del municipio (municipality_id) es obligatorio.',
+  })
+  @IsInt({ message: 'El ID del municipio debe ser un número entero.' })
+  @IsPositive({ message: 'El ID del municipio debe ser un número positivo.' })
+  @IsNotEmpty({ message: 'El ID del municipio no puede estar vacío.' })
+  municipality_id: number;
 
   @IsOptional()
   @IsInt({ message: 'El ID del usuario debe ser un número entero.' })
